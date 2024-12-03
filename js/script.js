@@ -86,4 +86,6 @@ function asideSectionTogglerBtn() {
 }
 
 // =========================== Send Form Data ========================
-
+document.querySelector('.btn').addEventListener('click', (e) => {
+    alert('Your download will start shortly!');
+});

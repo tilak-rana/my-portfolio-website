@@ -48,7 +48,7 @@
                             <p>I'm a full stack web developer, programmer studying at IIT BHU(Varanasi).My expertise is
                                 to solve
                                 DSA problems and create website, and many more...</p>
-                            <a href="#" class="btn">Download Resume</a>
+                            <a href="Resume.pdf" class="btn" id="Download_resume">Download Resume</a>
                         </div>
                         <div class="home-img padd-15">
                             <img src="images/hero1.jpg" alt="">
@@ -447,35 +447,47 @@
     <!-- ==== Style Switchar End -->
     <!--  ==== JS Files ==== -->
     <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <!-- Include EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // Initialize EmailJS with your User ID
+        (function () {
+            emailjs.init("tiluck44@gmail.com"); // Replace YOUR_USER_ID with your actual user ID from EmailJS
+        })();
+
         function sendEmail() {
+            // Collect form data
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
 
-            Email.send({
-                Host: "smtp.elasticemail.com",
-                Username: "tiluck44@gmail.com",
-                Password: "A7A9DC4A0E2AFD59C7B898FE3DD5CF030FF1",
-                To: 'pradeep21045134@gmail.com',
-                From: document.getElementById("email").value,
-                Subject: "contact message",
-                Body: "name: " + document.getElementById('name').value
-                    + "<br/> email: " + document.getElementById('email').value
-                    + "<br/> subject: " + document.getElementById('subject').value
-                    + "<br/> message: " + document.getElementById('message').value
-
-            }).then(
-                message => alert("Message sent successfully")
-            );
+            // Send the email
+            emailjs.send('service_yr6s66o', 'template_hng7dpl', templateParams)
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert("Message sent successfully");
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    alert("Failed to send the message. Please try again.");
+                });
         }
+
+
+        // Attach the click event listener to the button
         let btn = document.getElementById('btn');
         btn.addEventListener("click", function (event) {
             event.preventDefault();
-            // console.log("hi");
             sendEmail();
-            
-        })
+        });
     </script>
+
     <script src="js/script.js"></script>
     <script src="js/style-switcher.js"></script>
 </body>
 
 </html>
+<!-- service_yr6s66o -->
+<!-- template_hng7dpl -->
